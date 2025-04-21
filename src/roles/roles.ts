@@ -1,4 +1,4 @@
-// src/roles/roles.ts
+
 export const roles = {
   admin: {
     canView: true,
@@ -11,11 +11,6 @@ export const roles = {
     canEdit: false,
     canDelete: false,
     canAdd: false,
-  },
-  editor: {
-    canView: true,
-    canEdit: true,
-    canDelete: false,
-    canAdd: true,
-  },
+  }
+
 };

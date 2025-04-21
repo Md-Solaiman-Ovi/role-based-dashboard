@@ -1,5 +1,3 @@
-// src/pages/Dashboard.tsx
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/auth";
 
@@ -32,7 +30,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-8 flex flex-col items-center">
+    <div className="p-8 flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold mb-4">Welcome to the Dashboard</h1>
       <RoleSwitcher />
       <button

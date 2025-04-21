@@ -1,4 +1,3 @@
-// src/context/StudentContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
 export type Student = {

@@ -1,4 +1,3 @@
-// src/pages/StudentPage.tsx
 import React from "react";
 import { useStudentContext } from "../context/StudentContext";
 import Button from "../components/Button";
@@ -40,24 +39,36 @@ const StudentPage = () => {
             <th className="p-2 text-center border-r">Details</th>
           </tr>
         </thead>
+
         <tbody>
-          {students.map((s, index: number) => (
-            <React.Fragment key={s.id}>
-              <tr className="border-t">
-                <td className="p-2 text-center w-20 border-r">{index + 1}</td>
-                <td className="p-2 text-center border-r">{s.name}</td>
-                <td className="p-2 text-center border-r">{s.email}</td>
-                <td className="p-2 text-center border-r">{s.age}</td>
-                <td className="p-2 text-center border-r">{s.course}</td>
-                <td className="p-2 text-center border-r">{s.address}</td>
-                <td className="p-2 text-center border-r">
-                  <Button variant="outline" disabled>
-                    View Details
-                  </Button>
-                </td>
-              </tr>
-            </React.Fragment>
-          ))}
+          {students.length === 0 ? (
+            <tr>
+              <td
+                colSpan={7}
+                className="text-center py-4 flex justify-center w-full"
+              >
+                No data available.
+              </td>
+            </tr>
+          ) : (
+            students.map((s, index: number) => (
+              <React.Fragment key={s.id}>
+                <tr className="border-t">
+                  <td className="p-2 text-center w-20 border-r">{index + 1}</td>
+                  <td className="p-2 text-center border-r">{s.name}</td>
+                  <td className="p-2 text-center border-r">{s.email}</td>
+                  <td className="p-2 text-center border-r">{s.age}</td>
+                  <td className="p-2 text-center border-r">{s.course}</td>
+                  <td className="p-2 text-center border-r">{s.address}</td>
+                  <td className="p-2 text-center border-r">
+                    <Button variant="outline" disabled>
+                      View Details
+                    </Button>
+                  </td>
+                </tr>
+              </React.Fragment>
+            ))
+          )}
         </tbody>
       </table>
     </div>

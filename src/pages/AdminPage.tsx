@@ -1,4 +1,3 @@
-// src/pages/AdminPage.tsx
 import React, { useState } from "react";
 import { Student, useStudentContext } from "../context/StudentContext";
 import Button from "../components/Button";
@@ -79,24 +78,24 @@ const AdminPage = () => {
     <div className="p-6 container mx-auto">
       <h1 className="text-2xl font-bold mb-4">Admin Panel - Manage Students</h1>
 
-      <div className="flex justify-between p-2  ">
+      <div className="flex justify-between p-2  my-5 ">
         <Button
           onClick={openCreateModal}
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-red-700"
+          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-teal-500 shadow-xl"
         >
           Add New
         </Button>
         <button
           onClick={handleLogout}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 shadow-xl"
         >
           Logout
         </button>
       </div>
 
-      <table className="w-full border text-sm">
+      <table className="w-full border text-sm rounded-xl shadow-xl">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-green-300">
             <th className="p-2 text-left">
               <input
                 type="checkbox"
@@ -110,35 +109,49 @@ const AdminPage = () => {
           </tr>
         </thead>
         <tbody>
-          {students.map((s) => (
-            <React.Fragment key={s.id}>
-              <tr className="border-t">
-                <td className="p-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.includes(s.id)}
-                    onChange={() => handleSelect(s.id)}
-                  />
-                </td>
-                <td className="p-2">{s.name}</td>
-                <td className="p-2">{s.email}</td>
-                <td className="p-2">
-                  <Button variant="outline" onClick={() => openEditModal(s)}>
-                    Edit
-                  </Button>{" "}
-                  <Button variant="danger" onClick={() => deleteStudent(s.id)}>
-                    Delete
-                  </Button>
-                </td>
-              </tr>
-              <tr className="text-sm text-gray-600 bg-gray-50">
-                <td colSpan={4} className="px-6 pb-2 pt-0">
-                  <strong>Age:</strong> {s.age} | <strong>Course:</strong>{" "}
-                  {s.course} | <strong>Address:</strong> {s.address}
-                </td>
-              </tr>
-            </React.Fragment>
-          ))}
+          {students.length === 0 ? (
+            <tr>
+              <td
+                colSpan={7}
+                className="text-center py-4 flex justify-center w-full"
+              >
+                No data available. Add new one.
+              </td>
+            </tr>
+          ) : (
+            students.map((s) => (
+              <React.Fragment key={s.id}>
+                <tr className="border-t">
+                  <td className="p-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedIds.includes(s.id)}
+                      onChange={() => handleSelect(s.id)}
+                    />
+                  </td>
+                  <td className="p-2">{s.name}</td>
+                  <td className="p-2">{s.email}</td>
+                  <td className="p-2">
+                    <Button variant="primary" onClick={() => openEditModal(s)}>
+                      Edit
+                    </Button>{" "}
+                    <Button
+                      variant="danger"
+                      onClick={() => deleteStudent(s.id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+                <tr className="text-sm text-gray-600 bg-gray-50">
+                  <td colSpan={4} className="px-6 pb-2 pt-0">
+                    <strong>Age:</strong> {s.age} | <strong>Course:</strong>{" "}
+                    {s.course} | <strong>Address:</strong> {s.address}
+                  </td>
+                </tr>
+              </React.Fragment>
+            ))
+          )}
         </tbody>
       </table>
 

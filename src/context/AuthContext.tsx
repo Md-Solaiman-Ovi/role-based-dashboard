@@ -1,4 +1,3 @@
-// src/context/AuthContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
 // Define the AuthContextProps type with `logout` function
