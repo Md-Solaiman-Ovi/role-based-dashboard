@@ -1,34 +1,24 @@
-// src/components/Button.tsx
 import React from "react";
 
-type ButtonProps = {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick?: () => void;
-  variant?: "primary" | "danger" | "success";
-  disabled?: boolean;
-};
+  variant?: "primary" | "danger" | "outline";
+}
 
-const Button = ({
+const Button: React.FC<ButtonProps> = ({
   children,
-  onClick,
   variant = "primary",
-  disabled,
-}: ButtonProps) => {
-  const base = "px-4 py-2 rounded text-white font-semibold transition";
+  ...props
+}) => {
+  const base = "px-4 py-2 rounded font-medium transition";
   const styles = {
-    primary: "bg-blue-600 hover:bg-blue-700",
-    danger: "bg-red-600 hover:bg-red-700",
-    success: "bg-green-600 hover:bg-green-700",
+    primary: "bg-blue-600 text-white hover:bg-blue-700",
+    danger: "bg-red-600 text-white hover:bg-red-700",
+    outline: "border border-gray-300 text-gray-800 hover:bg-gray-100",
   };
 
   return (
-    <button
-      onClick={onClick}
-      className={`${base} ${styles[variant]} ${
-        disabled ? "opacity-50 cursor-not-allowed" : ""
-      }`}
-      disabled={disabled}
-    >
+    <button className={`${base} ${styles[variant]}`} {...props}>
       {children}
     </button>
   );

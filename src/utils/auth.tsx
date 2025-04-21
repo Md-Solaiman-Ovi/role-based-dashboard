@@ -1,16 +1,25 @@
-// src/utils/auth.tsx
-import { createContext, useContext, useState, ReactNode } from "react";
-import { roles } from "../roles/roles"; // ✅ Add this import
+import React, { createContext, useContext, useState } from "react";
 
-type AuthContextType = {
-  role: keyof typeof roles;
-  setRole: (role: keyof typeof roles) => void;
-};
+type Role = "admin" | "student";
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+interface AuthContextProps {
+  role: Role;
+  setRole: (role: Role) => void;
+}
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [role, setRole] = useState<keyof typeof roles>("admin");
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [role, setRoleState] = useState<Role>(() => {
+    return (localStorage.getItem("role") as Role) || "student";
+  });
+
+  const setRole = (newRole: Role) => {
+    localStorage.setItem("role", newRole);
+    setRoleState(newRole);
+  };
 
   return (
     <AuthContext.Provider value={{ role, setRole }}>
@@ -19,7 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) throw new Error("useAuth must be used within AuthProvider");
   return context;
